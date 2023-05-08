@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <assert.h>
+#include "huffman.h"
+
+static int _compare_fn(const void* o1, const void* o2) {
+	int var1 = *o1;
+	size_t var2 = *o2;
+/*	if((freqs[var1] - freqs[var2])) {
+		return (freqs[var1] - freqs[var2]);
+	}
+	else {
+		return ((uchar)var1 - (uchar)var2);
+	} */
+	if(var1 - var2) {
+		return (int)(var1 - var2);
+	}
+	else {
+		return (int)((uchar)var1 - (uchar)var2);
+	}
+}
+
+Node* make_huffman_pq(Frequencies freqs) {
+	Node* huffman_node = NULL;
+	for(int i = 0; i <= 256; i++) {
+		if(freqs[i] >= 0) {
+			TreeNode* value = malloc(sizeof(*value));
+			*value = (TreeNode) { .character = (char)i, .frequency = freqs[i], .left = NULL, .right = NULL };
+			//huffman_node -> value = value;
+			pq_enqueue(&huffman_node, value, _compare_fn);
+		}
+	}
+	return huffman_node;
+}
+
+
+/*
+TreeNode* make_huffman_pq(Frequencies freqs) {
+	//Node* huffman_node = (Node) { .left = NULL, .right = NULL };
+	TreeNode* huffman_node = NULL;
+	for(int i = 0; i <= 256; i++) {
+		if(freqs[i] >= 0) {
+			TreeNode* next_node = (TreeNode) {.character = (uchar)i, .frequency = freqs[i], .left = NULL, .right = NULL};
+			//huffman_node = pq_enqueue(&next_node, (uchar)i, _compare_fn());
+			void* value = (uchar)i;
+			pq_enqueue(&next_node, value, _compare_fn);
+		}
+	}
+	return huffman_node;
+}
+*/
+/* vim: set tabstop=4 shiftwidth=4 fileencoding=utf-8 noexpandtab: */

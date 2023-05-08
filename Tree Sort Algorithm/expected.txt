@@ -1,0 +1,13 @@
+Befter tree sort
+5 4 10 40 2 1 7 6 3
+
+After tree sort
+1 2 3 4 5 6 7 10 40 
+
+Before qsort
+1 5 7 2 7 76 23
+
+After qsort
+1 2 5 7 7 23 76
+
+
